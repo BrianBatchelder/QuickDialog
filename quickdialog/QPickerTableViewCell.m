@@ -90,6 +90,11 @@ NSString * const QPickerTableViewCellIdentifier = @"QPickerTableViewCell";
     [self setNeedsLayout];
 }
 
+- (void)prepareForElement:(QEntryElement *)element
+{
+    [self prepareForElement:element inTableView:_quickformTableView];
+}
+
 #pragma mark - UIPickerView data source and delegate
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

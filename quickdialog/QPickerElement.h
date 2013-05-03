@@ -10,7 +10,7 @@
 
 @property (nonatomic, strong) id<QPickerValueParser> valueParser;
 
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, readonly) NSArray *selectedIndexes;
 
 - (QPickerElement *)initWithTitle:(NSString *)title items:(NSArray *)items value:(id)value;

@@ -5,9 +5,9 @@
 @implementation QPickerElement
 {
 @private
-    NSArray *_items;
-    
+    NSMutableArray *_items;
     UIPickerView *_pickerView;
+    QPickerTableViewCell *_cell;
 }
 
 @synthesize items = _items;
@@ -25,7 +25,7 @@
 - (QPickerElement *)initWithTitle:(NSString *)title items:(NSArray *)items value:(id)value
 {
     if ((self = [super initWithTitle:title Value:value])) {
-        _items = items;
+        _items = [NSMutableArray arrayWithArray:items];
         self.valueParser = [QPickerTabDelimitedStringParser new];
     }
     return self;
@@ -33,19 +33,19 @@
 
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller
 {
-    QPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:QPickerTableViewCellIdentifier];
-    if (cell == nil) {
-        cell = [[QPickerTableViewCell alloc] init];
+    _cell = [tableView dequeueReusableCellWithIdentifier:QPickerTableViewCellIdentifier];
+    if (_cell == nil) {
+        _cell = [[QPickerTableViewCell alloc] init];
     }
-    [cell applyAppearanceForElement:self];
+    [_cell applyAppearanceForElement:self];
 
     UIPickerView *pickerView = nil;
-    [cell prepareForElement:self inTableView:tableView pickerView:&pickerView];
+    [_cell prepareForElement:self inTableView:tableView pickerView:&pickerView];
     _pickerView = pickerView;
     
-    cell.imageView.image = self.image;
+    _cell.imageView.image = self.image;
     
-    return cell;
+    return _cell;
 }
 
 - (void)fetchValueIntoObject:(id)obj
@@ -72,5 +72,13 @@
 - (void)reloadComponent:(NSInteger)index
 {
     [_pickerView reloadComponent:index];
+    NSArray *componentsValues = [self.valueParser componentsValuesFromObject:self.value];
+    NSUInteger rowIndex = [_items[index] indexOfObject:componentsValues[index]];
+    if (rowIndex == NSNotFound) {
+        rowIndex = 0;
+    }
+    [_pickerView selectRow:rowIndex inComponent:index animated:YES];
+    [_cell prepareForElement:self];
 }
+
 @end

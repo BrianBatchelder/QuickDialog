@@ -18,6 +18,7 @@ NSString * const QPickerTableViewCellIdentifier;
 @property (nonatomic, strong) UIPickerView *pickerView;
 
 - (void)prepareForElement:(QEntryElement *)element inTableView:(QuickDialogTableView *)tableView pickerView:(UIPickerView **)pickerView;
+- (void)prepareForElement:(QEntryElement *)element;
 
 - (void)setPickerViewValue:(id)value;
 - (id)getPickerViewValue;
