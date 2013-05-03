@@ -71,7 +71,11 @@
 - (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
     [tableView deselectRowAtIndexPath:path animated:YES];
 
-    [self presentImagePicker:tableView controller:controller path:path];
+    if (_onSelected) {
+        _onSelected();
+    } else {
+        [self presentImagePicker:tableView controller:controller path:path];
+    }
 }
 
 - (void)presentImagePicker:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller path:(NSIndexPath *)path {

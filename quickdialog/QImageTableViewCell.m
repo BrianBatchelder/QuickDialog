@@ -39,23 +39,16 @@ static NSString *kDetailImageValueObservanceContext = @"imageValue";
 
 - (void)createSubviews {
     _imageViewButton = [[UIButton alloc] init];
-    _imageViewButton.contentMode = UIViewContentModeScaleAspectFill;
+    _imageViewButton.contentMode = UIViewContentModeScaleAspectFit;
+    _imageViewButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageViewButton.layer.cornerRadius = 7.2f;
     _imageViewButton.layer.masksToBounds = YES;
-    _imageViewButton.contentMode = UIViewContentModeScaleAspectFill;
     _imageViewButton.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.1];
     _imageViewButton.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    [_imageViewButton addTarget:self action:@selector(handleImageSelected) forControlEvents:UIControlEventTouchUpInside];
+    _imageViewButton.enabled = NO;
+    _imageViewButton.adjustsImageWhenDisabled = NO;
     [self.contentView addSubview:_imageViewButton];
     [self setNeedsLayout];
-}
-
-- (void)handleImageSelected {
-    if (((QImageElement *)_entryElement).imageValue!=nil){
-
-    } else{
-
-    }
 }
 
 - (void)prepareForElement:(QEntryElement *)element inTableView:(QuickDialogTableView *)tableView {
