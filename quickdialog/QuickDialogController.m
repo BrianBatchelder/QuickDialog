@@ -83,6 +83,7 @@
     self = [super init];
     if (self) {
         self.root = rootElement;
+        rootElement.controller = self;
         self.resizeWhenKeyboardPresented =YES;
     }
     return self;

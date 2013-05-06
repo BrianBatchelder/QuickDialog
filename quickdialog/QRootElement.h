@@ -41,6 +41,7 @@ typedef enum  {
 @property(assign) BOOL grouped;
 
 @property(nonatomic, retain) NSString *controllerName;
+@property(nonatomic, retain) QuickDialogController *controller;
 
 @property(nonatomic, copy) NSString *emptyMessage;
 @property(nonatomic) QPresentationMode presentationMode;
