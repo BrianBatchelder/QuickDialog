@@ -4,7 +4,7 @@
 #import "QSegmentedElement.h"
 
 @implementation QSegmentedElement {
-    QuickDialogController *_controller;
+    __weak QuickDialogController *_controller;
 }
 - (void)setItems:(NSArray *)anItems {
     if (_items != anItems) {
@@ -41,10 +41,10 @@
 
 - (void)handleSegmentedControlValueChanged:(id)control {
     _selected = ((UISegmentedControl *)control).selectedSegmentIndex;
-    if (self.onValueChanged!=nil)
-        self.onValueChanged(self);
 
     [self handleElementSelected:_controller];
+    
+    [self handleEditingChanged];
 }
 
 

@@ -14,6 +14,8 @@
 
 #import "QWebElement.h"
 #import "QuickDialog.h"
+#import "QWebViewController.h"
+
 @implementation QWebElement
 
 @synthesize url = _url;
@@ -39,6 +41,10 @@
     return self;
 }
 
+-(void)setFile:(NSString *)filename {
+    _url = [[NSBundle mainBundle] pathForResource:filename ofType:@"html"];
+}
+
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
@@ -55,7 +61,7 @@
 		[controller displayViewController:webController];
 	}
 	else {
-		if ([_url hasPrefix:@"http"]) {
+        if ([_url hasPrefix:@"http"] || [_url hasPrefix:@"/"]) {
 			QWebViewController *webController = [[QWebViewController alloc] initWithUrl:_url];
 			[controller displayViewController:webController withPresentationMode:self.presentationMode];
 		} else {

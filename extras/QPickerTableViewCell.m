@@ -8,6 +8,7 @@
 
 #import "QPickerTableViewCell.h"
 #import "QuickDialog.h"
+#import "QPickerElement.h"
 
 NSString * const QPickerTableViewCellIdentifier = @"QPickerTableViewCell";
 
@@ -116,10 +117,7 @@ NSString * const QPickerTableViewCellIdentifier = @"QPickerTableViewCell";
 {
     self.pickerElement.value = [self getPickerViewValue];
     [self prepareForElement:_entryElement inTableView:_quickformTableView];
-
-    if (self.pickerElement.onValueChanged != nil) {
-        self.pickerElement.onValueChanged(self.pickerElement);
-    }    
+    [self.pickerElement handleEditingChanged];
 }
 
 #pragma mark - Getting/setting value from UIPickerView

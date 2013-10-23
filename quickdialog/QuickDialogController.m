@@ -43,6 +43,8 @@
 
 + (QuickDialogController *)controllerForRoot:(QRootElement *)root {
     Class controllerClass = [self controllerClassForRoot:root];
+    if (controllerClass==nil)
+        NSLog(@"Couldn't find a class for name %@", root.controllerName);
     return [((QuickDialogController *)[controllerClass alloc]) initWithRoot:root];
 }
 
@@ -103,7 +105,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     _viewOnScreen = YES;
-    [self.quickDialogTableView viewWillAppear];
+    [self.quickDialogTableView deselectRows];
     [super viewWillAppear:animated];
     if (_root!=nil) {
         self.title = _root.title;
@@ -112,7 +114,26 @@
             [self.quickDialogTableView scrollToRowAtIndexPath:_root.preselectedElementIndex atScrollPosition:UITableViewScrollPositionTop animated:NO];
 
     }
+}
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if (_root.showKeyboardOnAppear) {
+        QEntryElement *elementToFocus = [_root findElementToFocusOnAfter:nil];
+        if (elementToFocus!=nil)  {
+            UITableViewCell *cell = [self.quickDialogTableView cellForElement:elementToFocus];
+            if (cell != nil) {
+                [cell becomeFirstResponder];
+            }
+        }
+    }
+}
+
+
+- (BOOL)disablesAutomaticKeyboardDismissal
+{
+    return NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
