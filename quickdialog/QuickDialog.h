@@ -17,14 +17,13 @@
 #import "QuickDialogController+Navigation.h"
 #import "QuickDialogController+Loading.h"
 #import "QuickDialogController+Helpers.h"
+#import "QuickDialogDelegate.h"
 
 #import "NSMutableArray+MoveObject.h"
 #import "QuickDialogTableView.h"
 #import "QuickDialogTableDelegate.h"
 
 #import "QElement.h"
-#import "QAppearance.h"
-
 #import "QAppearance.h"
 #import "QFlatAppearance.h"
 #import "QElement+Appearance.h"

@@ -18,9 +18,6 @@
 
 @implementation QWebElement
 
-@synthesize url = _url;
-@synthesize html = _html;
-
 - (QWebElement *)initWithTitle:(NSString *)title url:(NSString *)url {
     self = [super init];
     if (self!=nil){
@@ -54,7 +51,7 @@
 
 
 - (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
-    [self handleElementSelected:controller];
+    [self performAction];
 	if (_html) {
 		QWebViewController *webController = [[QWebViewController alloc] initWithHTML:_html];
         webController.title = self.title;
